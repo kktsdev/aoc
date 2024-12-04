@@ -1,14 +1,16 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     flake-utils.url = "github:numtide/flake-utils";
   };
   outputs = {flake-utils, ...} @ inputs:
     flake-utils.lib.eachDefaultSystem (system: let
-      nixpkgs = inputs.nixpkgs.legacyPackages.${system};
+      pkgs = inputs.nixpkgs.legacyPackages.${system};
     in {
-      devShells.default = nixpkgs.mkShell {
-        nativeBuildInputs = [nixpkgs.ghc];
+      devShells.default = pkgs.mkShell {
+        nativeBuildInputs = [
+          (pkgs.haskellPackages.ghcWithPackages (pkgs: [pkgs.regex-tdfa]))
+        ];
       };
     });
 }
