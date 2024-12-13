@@ -9,7 +9,7 @@
     in {
       devShells.default = pkgs.mkShell {
         nativeBuildInputs = [
-          (pkgs.haskellPackages.ghcWithPackages (pkgs: [pkgs.regex-tdfa]))
+          (pkgs.haskellPackages.ghcWithPackages (pkgs: [pkgs.regex-tdfa pkgs.split]))
         ];
       };
     });
